@@ -34,9 +34,9 @@ public class UserController {
 	@ResponseStatus(HttpStatus.OK)
     public UserResponseDTO getUser (@PathVariable String cpf) {
         return new UserResponseDTO(userService.findCpf(cpf));
-    }
-
-    @PutMapping (value = "/{cpf}")
+  }
+  
+  @PutMapping (value = "/{cpf}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateUser (@PathVariable String cpf, @RequestBody @Valid UserRequestDTO userRequestDTO){
 		userService.update(cpf, userRequestDTO);
