@@ -28,5 +28,12 @@ public class UserService {
             throw new DataIntegrityException("CPF ou E-Mail já cadastrado!");
         }
     }
+    public void remove(String cpf){
+        userRepository.delete(findByCpf(cpf));
+    }
 
+    public void update(String cpf, User user){
+        remove(cpf);
+        userRepository.save(user);
+    }
 }
