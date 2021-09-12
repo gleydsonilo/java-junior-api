@@ -1,5 +1,8 @@
 package br.com.training.service;
 
+import br.com.training.dto.converter.UserConverterDTO;
+import br.com.training.dto.request.UserRequestDTO;
+import br.com.training.dto.response.UserResponseDTO;
 import br.com.training.model.User;
 import br.com.training.repository.UserRepository;
 import br.com.training.service.exception.DataIntegrityException;
@@ -16,23 +19,29 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User findByCpf(String cpf) {
+    @Autowired
+    private UserConverterDTO userConverterDTO;
+
+    public User findCpf(String cpf) {
         Optional<User> user = Optional.ofNullable(userRepository.findByCpf(cpf));
         return user.orElseThrow(() -> new InvalidArgumentException("CPF não localizado!"));
     }
 
-    public User insert(User user){
+    public UserRequestDTO insert(UserRequestDTO userRequestDTO) {
+        User user = userConverterDTO.requestToEntity(userRequestDTO);
         try {
-            return userRepository.save(user);
-        } catch (DataIntegrityViolationException e){
+            return userConverterDTO.entityToRequest(userRepository.save(user));
+        } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("CPF ou E-Mail já cadastrado!");
         }
     }
-    public void remove(String cpf){
-        userRepository.delete(findByCpf(cpf));
+
+    public void remove(String cpf) {
+        userRepository.delete(findCpf(cpf));
     }
 
-    public void update(String cpf, User user){
+    public void update(String cpf, UserRequestDTO userRequestDTO) {
+        User user = userConverterDTO.requestToEntity(userRequestDTO);
         remove(cpf);
         userRepository.save(user);
     }
