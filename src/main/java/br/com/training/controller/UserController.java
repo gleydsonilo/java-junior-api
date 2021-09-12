@@ -29,11 +29,11 @@ public class UserController {
 
 	@GetMapping (value = "/{cpf}")
 	@ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<User> getUser (@PathVariable String cpf) {
+   	public ResponseEntity<User> getUser (@PathVariable String cpf) {
         return ResponseEntity.ok(userService.findByCpf(cpf));
-    }
+        }
 
-    @PutMapping (value = "/{cpf}")
+        @PutMapping (value = "/{cpf}")
 	public ResponseEntity<Void> updateUser (@PathVariable String cpf, @RequestBody @Valid User user){
 		userService.update(cpf, user);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
