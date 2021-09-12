@@ -2,6 +2,9 @@ package br.com.training.controller;
 
 import javax.validation.Valid;
 
+import br.com.training.dto.converter.UserConverterDTO;
+import br.com.training.dto.request.UserRequestDTO;
+import br.com.training.dto.response.UserResponseDTO;
 import br.com.training.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,25 +26,25 @@ public class UserController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<User> createUser(@RequestBody @Valid User user) {
-		return ResponseEntity.ok(userService.insert(user));
+	public UserRequestDTO createUser(@RequestBody @Valid UserRequestDTO userRequestDTO) {
+		return (userService.insert(userRequestDTO));
 	}
 
 	@GetMapping (value = "/{cpf}")
 	@ResponseStatus(HttpStatus.OK)
-   	public ResponseEntity<User> getUser (@PathVariable String cpf) {
-        return ResponseEntity.ok(userService.findByCpf(cpf));
-        }
-
-        @PutMapping (value = "/{cpf}")
-	public ResponseEntity<Void> updateUser (@PathVariable String cpf, @RequestBody @Valid User user){
-		userService.update(cpf, user);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public UserResponseDTO getUser (@PathVariable String cpf) {
+        return new UserResponseDTO(userService.findCpf(cpf));
+  }
+  
+  @PutMapping (value = "/{cpf}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void updateUser (@PathVariable String cpf, @RequestBody @Valid UserRequestDTO userRequestDTO){
+		userService.update(cpf, userRequestDTO);
 	}
 
 	@DeleteMapping (value = "/{cpf}")
-	public ResponseEntity<Void> deleteUser (@PathVariable String cpf){
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteUser (@PathVariable String cpf){
 		userService.remove(cpf);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
