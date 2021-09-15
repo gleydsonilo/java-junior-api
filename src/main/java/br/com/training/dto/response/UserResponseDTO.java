@@ -2,25 +2,41 @@ package br.com.training.dto.response;
 
 import br.com.training.model.User;
 
+import java.time.LocalDate;
+
 public class UserResponseDTO {
 
+    private Long id;
     private String name;
     private String email;
     private String cpf;
+    private LocalDate birthDate;
 
     public UserResponseDTO (User user){
+        this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
         this.cpf = user.getCpf();
+        this.birthDate = user.getBirthDate();
     }
 
     public UserResponseDTO() {
     }
 
-    public UserResponseDTO(String name, String email, String cpf) {
+    public UserResponseDTO(Long id, String name, String email, String cpf, LocalDate birthDate) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.cpf = cpf;
+        this.birthDate = birthDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -45,5 +61,13 @@ public class UserResponseDTO {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 }

@@ -6,12 +6,9 @@ import br.com.training.dto.response.UserResponseDTO;
 import br.com.training.model.User;
 import br.com.training.repository.UserRepository;
 import br.com.training.service.exception.DataIntegrityException;
-import br.com.training.service.exception.InvalidArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -22,9 +19,9 @@ public class UserService {
     @Autowired
     private UserConverterDTO userConverterDTO;
 
-    public User findCpf(String cpf) {
-        Optional<User> user = Optional.ofNullable(userRepository.findByCpf(cpf));
-        return user.orElseThrow(() -> new InvalidArgumentException("CPF não localizado!"));
+    public UserResponseDTO findCpf(String cpf) {
+        User user = userRepository.findByCpf(cpf);
+        return userConverterDTO.entityToResponse(user);
     }
 
     public UserRequestDTO insert(UserRequestDTO userRequestDTO) {
@@ -37,12 +34,14 @@ public class UserService {
     }
 
     public void remove(String cpf) {
-        userRepository.delete(findCpf(cpf));
+        User user = userRepository.findByCpf(cpf);
+        userRepository.delete(user);
     }
 
-    public void update(String cpf, UserRequestDTO userRequestDTO) {
+    public void update(UserRequestDTO userRequestDTO, String cpf) {
+        User id = userRepository.findByCpf(cpf);
         User user = userConverterDTO.requestToEntity(userRequestDTO);
-        remove(cpf);
+        user.setId(id.getId());
         userRepository.save(user);
     }
 }
