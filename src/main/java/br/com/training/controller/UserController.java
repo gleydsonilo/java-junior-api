@@ -26,7 +26,7 @@ public class UserController {
     @GetMapping(value = "/{cpf}")
     @ResponseStatus(HttpStatus.OK)
     public UserResponseDTO getUser(@PathVariable String cpf) {
-        return userService.findCpf(cpf);
+        return userService.findByCpf(cpf);
     }
 
     @PutMapping(value = "/{cpf}")
