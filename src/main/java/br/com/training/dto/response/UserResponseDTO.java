@@ -6,14 +6,12 @@ import java.time.LocalDate;
 
 public class UserResponseDTO {
 
-    private Long id;
     private String name;
     private String email;
     private String cpf;
     private LocalDate birthDate;
 
     public UserResponseDTO (User user){
-        this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
         this.cpf = user.getCpf();
@@ -23,20 +21,11 @@ public class UserResponseDTO {
     public UserResponseDTO() {
     }
 
-    public UserResponseDTO(Long id, String name, String email, String cpf, LocalDate birthDate) {
-        this.id = id;
+    public UserResponseDTO(String name, String email, String cpf, LocalDate birthDate) {
         this.name = name;
         this.email = email;
         this.cpf = cpf;
         this.birthDate = birthDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
