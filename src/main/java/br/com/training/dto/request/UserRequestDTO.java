@@ -1,15 +1,19 @@
 package br.com.training.dto.request;
 
 import br.com.training.model.User;
+import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.constraints.Email;
 import java.time.LocalDate;
 
 public class UserRequestDTO {
 
     private String name;
 
+    @Email(message = "email")
     private String email;
 
+    @CPF(message = "cpf")
     private String cpf;
 
     private LocalDate birthDate;

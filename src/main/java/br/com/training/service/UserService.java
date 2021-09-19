@@ -5,10 +5,8 @@ import br.com.training.dto.request.UserRequestDTO;
 import br.com.training.dto.response.UserResponseDTO;
 import br.com.training.model.User;
 import br.com.training.repository.UserRepository;
-import br.com.training.service.exception.DataIntegrityException;
 import br.com.training.service.exception.InvalidArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,12 +25,10 @@ public class UserService {
     }
 
     public UserRequestDTO insert(UserRequestDTO userRequestDTO) {
-        User user = userConverterDTO.requestToEntity(userRequestDTO);
-        try {
-            return userConverterDTO.entityToRequest(userRepository.save(user));
-        } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException("CPF ou E-Mail já cadastrado!");
-        }
+        User user = userRepository.findByCpf(userRequestDTO.getCpf());
+        checkUserIsNotNull(user);
+        user = userConverterDTO.requestToEntity(userRequestDTO);
+        return userConverterDTO.entityToRequest(userRepository.save(user));
     }
 
     public void remove(String cpf) {
@@ -65,6 +61,12 @@ public class UserService {
     public void checkUserIsNull(User user){
         if (user == null){
             throw new InvalidArgumentException("Usuário não localizado!");
+        }
+    }
+
+    public void checkUserIsNotNull(User user){
+        if (user != null){
+            throw new InvalidArgumentException("Usuário já cadastrado!");
         }
     }
 }
