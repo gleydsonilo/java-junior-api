@@ -43,7 +43,6 @@
 
 ```json
 {
-    "id": 1,
     "name": "exemplo",
     "email": "email@email",
     "cpf": "123456789",
