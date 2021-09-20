@@ -11,8 +11,11 @@
 
 - ### Segunda Parte
 - [x] Uso de DTO
-- [ ] Uso de anotações de validações
+- [x] Uso de anotações de validações
 
+- ### Terceira Parte
+- [x] Tratamento de Exceções
+- [ ] Testes Unitários
 
 ## Requisitos
 
