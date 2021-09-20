@@ -4,16 +4,18 @@ import br.com.training.model.User;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class UserRequestDTO {
 
+    @Size(min = 3, max = 300)
     private String name;
 
-    @Email(message = "email")
+    @Email
     private String email;
 
-    @CPF(message = "cpf")
+    @CPF
     private String cpf;
 
     private LocalDate birthDate;
