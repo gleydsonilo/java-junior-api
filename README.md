@@ -33,8 +33,8 @@
 
 ```json
 {
-    "name":"exemplo",
-    "cpf":"123456789",
+    "name":"Fulano de Tal",
+    "cpf":"60922599580",
     "email":"email@email",
     "birthDate":"1900-01-01"
 }
@@ -46,9 +46,9 @@
 
 ```json
 {
-    "name": "exemplo",
+    "name": "Fulano de Tal",
     "email": "email@email",
-    "cpf": "123456789",
+    "cpf": "60922599580",
     "birthDate": "1900-01-01"
 }
 ```
