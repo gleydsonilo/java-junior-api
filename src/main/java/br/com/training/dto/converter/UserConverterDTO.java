@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserConverterDTO {
 
-    public UserRequestDTO entityToRequest (User user){
+    public UserRequestDTO modelToRequest(User user){
 
         UserRequestDTO dto = new UserRequestDTO();
         dto.setName(user.getName());
@@ -18,7 +18,7 @@ public class UserConverterDTO {
         return dto;
     }
 
-    public User requestToEntity (UserRequestDTO userRequestDTO){
+    public User requestToModel(UserRequestDTO userRequestDTO){
 
         User user = new User();
         user.setName(userRequestDTO.getName());
@@ -28,7 +28,7 @@ public class UserConverterDTO {
         return user;
     }
 
-    public UserResponseDTO entityToResponse (User user){
+    public UserResponseDTO modelToResponse(User user){
 
         UserResponseDTO dto = new UserResponseDTO();
         dto.setName(user.getName());
@@ -38,7 +38,7 @@ public class UserConverterDTO {
         return dto;
     }
 
-    public User responseToEntity (UserResponseDTO userResponseDTO){
+    public User responseToModel(UserResponseDTO userResponseDTO){
 
         User user = new User();
         user.setName(userResponseDTO.getName());

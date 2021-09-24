@@ -21,20 +21,14 @@ public class UserService {
     public UserResponseDTO findByCpf(String cpf) {
         User user = userRepository.findByCpf(cpf);
         checkUserIsNull(user);
-        return userConverterDTO.entityToResponse(user);
+        return userConverterDTO.modelToResponse(user);
     }
 
-    public UserRequestDTO insert(UserRequestDTO userRequestDTO) {
-        User user = userRepository.findByCpf(userRequestDTO.getCpf());
-        checkUserIsNotNull(user);
-        user = userConverterDTO.requestToEntity(userRequestDTO);
-        return userConverterDTO.entityToRequest(userRepository.save(user));
-    }
-
-    public void remove(String cpf) {
-        User user = userRepository.findByCpf(cpf);
-        checkUserIsNull(user);
-        userRepository.delete(user);
+    public UserResponseDTO insert(UserRequestDTO userRequestDTO) {
+        User userToInsert = userRepository.findByCpf(userRequestDTO.getCpf());
+        checkUserIsNotNull(userToInsert);
+        userToInsert = userConverterDTO.requestToModel(userRequestDTO);
+        return userConverterDTO.modelToResponse(userRepository.save(userToInsert));
     }
 
     public void update(UserRequestDTO userRequestDTO, String cpf) {
@@ -56,6 +50,12 @@ public class UserService {
             userUpdated.setBirthDate(userRequestDTO.getBirthDate());
         }
         userRepository.save(userUpdated);
+    }
+
+    public void remove(String cpf) {
+        User user = userRepository.findByCpf(cpf);
+        checkUserIsNull(user);
+        userRepository.delete(user);
     }
 
     public void checkUserIsNull(User user){
