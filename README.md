@@ -15,7 +15,10 @@
 
 - ### Terceira Parte
 - [x] Tratamento de Exceções
-- [ ] Testes Unitários
+- [x] Testes Unitários
+
+- ### Quarta Parte
+- [x] Documentação
 
 ## Requisitos
 
@@ -57,7 +60,10 @@
 
 **PUT:** `http://localhost:8080/users/{cpf}` 
 
-
 ### Detela usuário com CPF
 
 **DELETE:** `http://localhost:8080/users/{cpf}`
+
+### Documentação com Swagger
+
+**SWAGGER** `http://localhost:8080/swagger-ui.html`
