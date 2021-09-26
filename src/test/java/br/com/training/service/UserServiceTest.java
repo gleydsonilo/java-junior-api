@@ -47,17 +47,8 @@ class UserServiceTest {
         userToFind.setEmail("email@email");
         userToFind.setBirthDate(date);
 
-        userToSave = new UserRequestDTO();
-        userToSave.setName("Name");
-        userToSave.setEmail("email@email");
-        userToSave.setCpf("60922599580");
-        userToSave.setBirthDate(date);
-
-        userToUpdate = new UserRequestDTO();
-        userToUpdate.setName("Name Updated");
-        userToUpdate.setEmail("email@email");
-        userToUpdate.setCpf("60922599580");
-        userToUpdate.setBirthDate(date);
+        this.userToSave = new UserRequestDTO("Name", "email@email", "60922599580", date);
+        this.userToUpdate = new UserRequestDTO("Name Updated", "email@email", "60922599580", date);
     }
 
     @Test
@@ -73,7 +64,6 @@ class UserServiceTest {
     public void testSave() {
         userService.insert(userToSave);
         verify(userRepositoryMock, times(1)).save(ArgumentMatchers.any());
-
     }
 
     @Test
@@ -88,7 +78,7 @@ class UserServiceTest {
     @DisplayName("Sucesso se o metedo DELETE for chamado")
     public void testDelete() {
         when(userRepositoryMock.findByCpf("60922599580")).thenReturn(userToFind);
-        userService.remove("04463201101");
+        userService.remove("60922599580");
         verify(userRepositoryMock, times(1)).delete(ArgumentMatchers.any());
     }
 
