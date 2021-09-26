@@ -31,13 +31,13 @@ class UserControllerTest {
     @BeforeEach
     void setUp() {
         LocalDate date = LocalDate.parse("1991-06-06");
-        this.userRequestDTO = new UserRequestDTO("Gleydson", "email@email", "04463201101", date);
+        this.userRequestDTO = new UserRequestDTO("Gleydson", "email@email", "60922599580", date);
     }
 
     @Test
     @DisplayName("Sucesso se NÃO achar o usuário")
     public void getUserNotFound() throws Exception {
-        mockMvc.perform(get("/users/{cpf}", "04463201101"))
+        mockMvc.perform(get("/users/{cpf}", "60922599580"))
                 .andExpect(status().isNotFound());
     }
 
@@ -53,7 +53,7 @@ class UserControllerTest {
     @Test
     @DisplayName("Sucesso se DELETAR o usuário")
     public void deleteUser() throws Exception {
-        mockMvc.perform(delete("/users/{cpf}", "04463201101"))
+        mockMvc.perform(delete("/users/{cpf}", "60922599580"))
                 .andExpect(status().isNoContent());
     }
 }
