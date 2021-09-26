@@ -28,7 +28,8 @@ public class UserService {
         User userToInsert = userRepository.findByCpf(userRequestDTO.getCpf());
         checkUserIsNotNull(userToInsert);
         userToInsert = userConverterDTO.requestToModel(userRequestDTO);
-        return userConverterDTO.modelToResponse(userRepository.save(userToInsert));
+        userRepository.save(userToInsert);
+        return userConverterDTO.modelToResponse(userToInsert);
     }
 
     public void update(UserRequestDTO userRequestDTO, String cpf) {
